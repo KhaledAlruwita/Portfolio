@@ -25,6 +25,7 @@ export const FloatingObjModel = ({
   const source = useLoader(OBJLoader, modelPath);
   const sourceTexture = useLoader(THREE.TextureLoader, texturePath);
   const animatedGroup = useRef<THREE.Group>(null);
+  const smoothedScroll = useRef(0);
 
   const normalizedModel = useMemo(() => {
     const model = source.clone(true);
@@ -57,19 +58,26 @@ export const FloatingObjModel = ({
     return wrapper;
   }, [baseRotation, pixelated, source, sourceTexture, targetSize]);
 
-  useFrame(({ clock }) => {
+  useFrame(({ clock }, delta) => {
     if (!animatedGroup.current) return;
     const elapsed = clock.getElapsedTime();
-    const scroll = typeof window === "undefined" ? 0 : window.scrollY;
+    const targetScroll = typeof window === "undefined" ? 0 : window.scrollY;
+    smoothedScroll.current = THREE.MathUtils.damp(
+      smoothedScroll.current,
+      targetScroll,
+      2,
+      delta
+    );
+    const scroll = smoothedScroll.current;
 
     animatedGroup.current.position.set(
-      position[0] + Math.sin(scroll * 0.003 + elapsed * 0.35) * scrollTravel,
-      position[1] + Math.cos(scroll * 0.0025 + elapsed * 0.7) * 0.25,
+      position[0] + Math.sin(scroll * 0.0008 + elapsed * 0.35) * scrollTravel,
+      position[1] + Math.cos(scroll * 0.0006 + elapsed * 0.7) * 0.25,
       position[2]
     );
-    animatedGroup.current.rotation.x = elapsed * 0.48 + scroll * 0.0018;
-    animatedGroup.current.rotation.y = elapsed * 0.72 + scroll * 0.0028;
-    animatedGroup.current.rotation.z = elapsed * 0.22 + scroll * 0.001;
+    animatedGroup.current.rotation.x = elapsed * 0.38 + scroll * 0.0003;
+    animatedGroup.current.rotation.y = elapsed * 0.52 + scroll * 0.00045;
+    animatedGroup.current.rotation.z = elapsed * 0.18 + scroll * 0.00018;
   });
 
   return (

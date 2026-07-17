@@ -44,7 +44,7 @@ export const About = () => {
 
         <div className="flex flex-col gap-5">
           <div className="grid-container">
-            <AboutModel kind="develop" label="Animated Tecmo Develop icon" />
+            <AboutModel kind="arwing" label="Animated Star Fox Arwing" />
 
             <div>
               <p className="grid-headtext">Tech Stack</p>
