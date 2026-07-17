@@ -230,8 +230,16 @@ section {
     @apply text-lg font-semibold text-white-800;
   }
 
-  .experience-description {
-    @apply mt-4 !text-base !leading-relaxed !text-white-600;
+  .experience-disclosure {
+    @apply mt-4 rounded-lg border border-white/10 bg-white/[0.025] px-3 py-2;
+  }
+
+  .experience-disclosure summary {
+    @apply cursor-pointer select-none text-sm font-medium text-cyan-200 transition-colors hover:text-cyan-100;
+  }
+
+  .experience-disclosure p {
+    @apply mt-3 text-sm leading-relaxed text-white-600;
   }
 
   .experience-skills {
@@ -261,7 +269,7 @@ section {
 
   /* contact section */
   .contact-card {
-    @apply mt-10 grid gap-3 rounded-2xl border border-white/10 bg-black-200 p-5 shadow-2xl shadow-black sm:grid-cols-3 sm:p-8;
+    @apply mt-10 grid gap-3 rounded-2xl border border-white/10 bg-black-200 p-5 shadow-2xl shadow-black sm:grid-cols-2 sm:p-8 lg:grid-cols-4;
   }
 
   .contact-row {
@@ -270,6 +278,11 @@ section {
 
   .contact-row > span {
     @apply flex size-11 shrink-0 items-center justify-center rounded-full bg-cyan-400/10 text-xl text-cyan-300;
+  }
+
+  .contact-row > span svg,
+  .contact-row > span img {
+    @apply size-5;
   }
 
   .contact-row small {
@@ -281,7 +294,7 @@ section {
   }
 
   .contact-links {
-    @apply flex flex-wrap gap-2 sm:col-span-3;
+    @apply flex flex-wrap gap-2 sm:col-span-2 lg:col-span-4;
   }
 
   .contact-links a {
@@ -299,6 +312,45 @@ section {
   animation-duration: 3s;
   animation-iteration-count: infinite;
   display: inline-block;
+}
+
+.scroll-arwing {
+  pointer-events: none;
+  position: fixed;
+  right: clamp(1rem, 4vw, 4rem);
+  bottom: clamp(4.5rem, 11vh, 7rem);
+  z-index: 15;
+  width: clamp(6.5rem, 9vw, 8.5rem);
+  aspect-ratio: 1;
+  opacity: 0;
+  transform: translate3d(2rem, 1rem, 0) scale(0.8);
+  transition:
+    opacity 300ms ease,
+    transform 450ms ease;
+}
+
+.scroll-arwing.is-visible {
+  opacity: 0.64;
+  transform: translate3d(0, 0, 0) scale(1);
+}
+
+.scroll-arwing canvas,
+.scroll-arwing > div {
+  width: 100% !important;
+  height: 100% !important;
+}
+
+@media (max-width: 767px) {
+  .scroll-arwing {
+    right: 0.25rem;
+    bottom: 4rem;
+    width: 5.5rem;
+    opacity: 0;
+  }
+
+  .scroll-arwing.is-visible {
+    opacity: 0.48;
+  }
 }
 
 .certificate-mark {
@@ -407,6 +459,10 @@ section {
 
 .about-model--mailbox {
   height: 18rem;
+}
+
+.about-model--certificate {
+  height: 11rem;
 }
 
 .about-model canvas,

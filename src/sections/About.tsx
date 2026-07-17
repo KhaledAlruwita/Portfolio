@@ -44,7 +44,7 @@ export const About = () => {
 
         <div className="flex flex-col gap-5">
           <div className="grid-container">
-            <AboutModel kind="paper" label="Animated stack of papers" />
+            <AboutModel kind="develop" label="Animated Tecmo Develop icon" />
 
             <div>
               <p className="grid-headtext">Tech Stack</p>
@@ -74,9 +74,10 @@ export const About = () => {
           </div>
 
           <div className="grid-container">
-            <div className="certificate-mark" aria-hidden="true">
-              ✓
-            </div>
+            <AboutModel
+              kind="certificate"
+              label="Animated Pokémon Pokédex certificate"
+            />
 
             <div className="space-y-3">
               <p className="grid-headtext">My Certificates</p>

@@ -11,7 +11,8 @@ import { clone as cloneSkeleton } from "three/examples/jsm/utils/SkeletonUtils.j
 import { CanvasLoader } from "./CanvasLoader";
 import { WebGLGuard } from "./WebGLGuard";
 
-export type AboutModelKind = "mailbox" | "paper" | "paper-airplane";
+export type AboutModelKind =
+  "mailbox" | "paper-airplane" | "develop" | "certificate";
 
 interface AboutModelProps {
   kind: AboutModelKind;
@@ -31,29 +32,44 @@ const modelConfig: Record<
     rotation: [0, -0.45, 0],
     scale: 2.1,
   },
-  paper: {
-    fallback: "/models/about/paper/obj_paper01_01.png",
-    rotation: [0.18, 0.12, -0.08],
-    scale: 3.25,
-  },
   "paper-airplane": {
     fallback: "/models/about/paper-airplane/pp_paper_airplane_diff.png",
     rotation: [0.2, -0.55, -0.12],
     scale: 3.1,
   },
+  develop: {
+    fallback: "/models/develop/MenuIcons.png",
+    rotation: [0.3, -0.4, 0.08],
+    scale: 3.1,
+  },
+  certificate: {
+    fallback: "/models/certificate/t01r01_award_bg1.png",
+    rotation: [-0.12, 0.18, 0.02],
+    scale: 3.35,
+  },
 };
 
-const MailboxSource = () => {
-  const mailbox = useLoader(OBJLoader, "/models/about/mailbox/model.obj");
-  const mailboxTexture = useLoader(
-    THREE.TextureLoader,
-    "/models/about/mailbox/3dptmailbox.png"
-  );
+interface TexturedObjSourceProps {
+  kind: AboutModelKind;
+  modelPath: string;
+  texturePath: string;
+  transparent?: boolean;
+}
+
+const TexturedObjSource = ({
+  kind,
+  modelPath,
+  texturePath,
+  transparent = false,
+}: TexturedObjSourceProps) => {
+  const source = useLoader(OBJLoader, modelPath);
+  const sourceTexture = useLoader(THREE.TextureLoader, texturePath);
 
   const model = useMemo(() => {
-    const clone = mailbox.clone(true);
-    const texture = mailboxTexture.clone();
+    const clone = source.clone(true);
+    const texture = sourceTexture.clone();
     texture.colorSpace = THREE.SRGBColorSpace;
+    texture.magFilter = THREE.NearestFilter;
     texture.needsUpdate = true;
 
     clone.traverse((child) => {
@@ -62,53 +78,16 @@ const MailboxSource = () => {
           map: texture,
           side: THREE.DoubleSide,
           toneMapped: false,
+          transparent,
+          alphaTest: transparent ? 0.08 : 0,
         });
       }
     });
 
     return clone;
-  }, [mailbox, mailboxTexture]);
+  }, [source, sourceTexture, transparent]);
 
-  return <NormalizedModel kind="mailbox" model={model} />;
-};
-
-const PaperSource = () => {
-  const paperTexture = useLoader(
-    THREE.TextureLoader,
-    "/models/about/paper/obj_paper01_01.png"
-  );
-  const model = useMemo(() => {
-    const stack = new THREE.Group();
-    const texture = paperTexture.clone();
-    texture.colorSpace = THREE.SRGBColorSpace;
-    texture.needsUpdate = true;
-
-    const sheets = [
-      { position: [-0.32, 0.16, 0], rotation: -0.12, map: texture },
-      { position: [0.36, 0.12, -0.04], rotation: 0.1 },
-      { position: [-0.46, -0.2, -0.08], rotation: 0.08 },
-      { position: [0.18, -0.25, -0.12], rotation: -0.06 },
-    ];
-
-    sheets.forEach(({ position, rotation, map }, index) => {
-      const sheet = new THREE.Mesh(
-        new THREE.BoxGeometry(1.3, 1.65, 0.035),
-        new THREE.MeshStandardMaterial({
-          color: index === 0 ? "#ffffff" : "#e8e7e2",
-          map,
-          roughness: 0.92,
-          metalness: 0,
-        })
-      );
-      sheet.position.set(position[0], position[1], position[2]);
-      sheet.rotation.z = rotation;
-      stack.add(sheet);
-    });
-
-    return stack;
-  }, [paperTexture]);
-
-  return <NormalizedModel kind="paper" model={model} />;
+  return <NormalizedModel kind={kind} model={model} />;
 };
 
 const PaperAirplaneSource = () => {
@@ -181,10 +160,18 @@ const NormalizedModel = ({
 
   useFrame(({ clock }) => {
     if (!animatedGroup.current) return;
-    animatedGroup.current.rotation.y =
-      Math.sin(clock.getElapsedTime() * 0.55) * 0.32;
+    const elapsed = clock.getElapsedTime();
+    const scrollOffset =
+      typeof window === "undefined" ? 0 : window.scrollY * 0.0025;
+
+    animatedGroup.current.rotation.y = elapsed * 0.38 + scrollOffset;
+    animatedGroup.current.rotation.x =
+      Math.sin(elapsed * 0.55 + scrollOffset) * 0.12;
+    animatedGroup.current.rotation.z =
+      Math.cos(elapsed * 0.4 + scrollOffset) * 0.06;
     animatedGroup.current.position.y =
-      Math.sin(clock.getElapsedTime() * 0.9) * 0.08;
+      Math.sin(elapsed * 0.9 + scrollOffset) * 0.1;
+    animatedGroup.current.position.x = Math.sin(scrollOffset * 1.4) * 0.08;
   });
 
   return (
@@ -213,11 +200,26 @@ export const AboutModel = ({ kind, label }: AboutModelProps) => {
 
           <Suspense fallback={<CanvasLoader />}>
             {kind === "mailbox" ? (
-              <MailboxSource />
-            ) : kind === "paper" ? (
-              <PaperSource />
-            ) : (
+              <TexturedObjSource
+                kind="mailbox"
+                modelPath="/models/about/mailbox/model.obj"
+                texturePath="/models/about/mailbox/3dptmailbox.png"
+              />
+            ) : kind === "paper-airplane" ? (
               <PaperAirplaneSource />
+            ) : kind === "develop" ? (
+              <TexturedObjSource
+                kind="develop"
+                modelPath="/models/develop/model.obj"
+                texturePath="/models/develop/MenuIcons.png"
+              />
+            ) : (
+              <TexturedObjSource
+                kind="certificate"
+                modelPath="/models/certificate/model.obj"
+                texturePath="/models/certificate/t01r01_award_bg1.png"
+                transparent
+              />
             )}
           </Suspense>
         </Canvas>

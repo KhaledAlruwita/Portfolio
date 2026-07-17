@@ -41,5 +41,12 @@ export function calculateSizes(
         : isTablet
           ? [-11, -7, -10]
           : [-13, -13, -10],
+    blitzBallPosition: isSmall
+      ? [-4.2, 2.4, -2]
+      : isMobile
+        ? [-5.5, 2.7, -2]
+        : isTablet
+          ? [-7, 2.8, -1]
+          : [-10.5, 2.2, -1],
   };
 }

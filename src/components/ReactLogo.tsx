@@ -7,7 +7,8 @@
 */
 
 import { Float, useGLTF } from "@react-three/drei";
-import type { GroupProps } from "@react-three/fiber";
+import { useFrame, type GroupProps } from "@react-three/fiber";
+import { useRef } from "react";
 import type * as THREE from "three";
 import type { GLTF } from "three-stdlib";
 
@@ -26,10 +27,25 @@ type GLTFResult = GLTF & {
 
 export const ReactLogo = (props: GroupProps) => {
   const { nodes, materials } = useGLTF(REACT_MODEL) as GLTFResult;
+  const groupRef = useRef<THREE.Group>(null);
+
+  useFrame(({ clock }) => {
+    if (!groupRef.current) return;
+    const scroll = typeof window === "undefined" ? 0 : window.scrollY;
+    groupRef.current.rotation.x = clock.elapsedTime * 0.3 + scroll * 0.001;
+    groupRef.current.rotation.y = clock.elapsedTime * 0.5 + scroll * 0.0022;
+    groupRef.current.rotation.z = clock.elapsedTime * 0.2 + scroll * 0.0007;
+  });
 
   return (
     <Float floatIntensity={1}>
-      <group position={[8, 8, 0]} scale={0.4} {...props} dispose={null}>
+      <group
+        ref={groupRef}
+        position={[8, 8, 0]}
+        scale={0.4}
+        {...props}
+        dispose={null}
+      >
         <mesh
           geometry={nodes["React-Logo_Material002_0"].geometry}
           material={materials["Material.002"]}

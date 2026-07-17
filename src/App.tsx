@@ -1,5 +1,6 @@
 import { lazy, Suspense } from "react";
 
+import { ScrollArwing } from "./components/ScrollArwing";
 import { Footer } from "./sections/Footer";
 import { Hero } from "./sections/Hero";
 import { Navbar } from "./sections/Navbar";
@@ -30,6 +31,7 @@ function App() {
   return (
     <main className="relative mx-auto max-w-7xl">
       <Navbar />
+      <ScrollArwing />
 
       <Hero />
       <Suspense fallback={<SectionFallback id="about" />}>

@@ -41,7 +41,7 @@ export const Experience = () => {
                 />
 
                 <Suspense fallback={<CanvasLoader />}>
-                  <group scale={2.05} position={[0, -0.48, 0]}>
+                  <group scale={1.55} position={[0, -0.34, 0]}>
                     <LaptopModel />
                   </group>
                 </Suspense>
@@ -89,9 +89,12 @@ export const Experience = () => {
                       <h5>{experience.position}</h5>
                       <p>{experience.duration}</p>
                       <p>{experience.location}</p>
-                      <p className="experience-description">
-                        {experience.description}
-                      </p>
+                      {experience.description ? (
+                        <details className="experience-disclosure">
+                          <summary>View responsibilities</summary>
+                          <p>{experience.description}</p>
+                        </details>
+                      ) : null}
                       <div className="experience-skills">
                         {experience.skills?.map((skill) => (
                           <span key={skill}>{skill}</span>
