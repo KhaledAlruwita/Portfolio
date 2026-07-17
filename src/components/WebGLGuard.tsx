@@ -17,11 +17,22 @@ const supportsWebGL = () => {
   if (typeof document === "undefined") return false;
 
   try {
+    if (!window.WebGLRenderingContext) return false;
+
     const canvas = document.createElement("canvas");
-    return Boolean(
-      window.WebGLRenderingContext &&
-      (canvas.getContext("webgl") ?? canvas.getContext("experimental-webgl"))
-    );
+    const context = (canvas.getContext("webgl") ??
+      canvas.getContext("experimental-webgl")) as WebGLRenderingContext | null;
+    const isSupported = Boolean(context);
+
+    if (context && "getExtension" in context) {
+      (
+        context.getExtension("WEBGL_lose_context") as {
+          loseContext: () => void;
+        } | null
+      )?.loseContext();
+    }
+
+    return isSupported;
   } catch {
     return false;
   }

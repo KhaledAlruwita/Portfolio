@@ -41,7 +41,7 @@ export const Experience = () => {
                 />
 
                 <Suspense fallback={<CanvasLoader />}>
-                  <group scale={2.35} position={[0, -0.55, 0]}>
+                  <group scale={2.05} position={[0, -0.48, 0]}>
                     <LaptopModel />
                   </group>
                 </Suspense>
