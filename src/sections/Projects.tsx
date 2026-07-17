@@ -74,17 +74,6 @@ export const Projects = () => {
             />
           </div>
 
-          <div
-            className="w-fit rounded-lg p-3 backdrop-blur-3xl backdrop-filter"
-            style={currentProject.logoStyle}
-          >
-            <img
-              src={currentProject.logo}
-              alt={`${currentProject.title} preview`}
-              className="size-10 rounded object-cover shadow-sm"
-            />
-          </div>
-
           <div className="my-5 flex flex-col gap-5 text-white-600">
             <p className="animatedText text-2xl font-semibold text-white">
               {currentProject.title}

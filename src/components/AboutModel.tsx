@@ -166,7 +166,7 @@ const NormalizedModel = ({
     if (!animatedGroup.current) return;
     const elapsed = clock.getElapsedTime();
     const targetScroll =
-      typeof window === "undefined" ? 0 : window.scrollY * 0.00055;
+      typeof window === "undefined" ? 0 : window.scrollY * 0.0009;
     smoothedScroll.current = THREE.MathUtils.damp(
       smoothedScroll.current,
       targetScroll,
@@ -180,11 +180,14 @@ const NormalizedModel = ({
 
     if (isPosed) {
       animatedGroup.current.rotation.x =
-        Math.sin(elapsed * 0.6 + scrollOffset) * 0.025;
+        Math.sin(elapsed * 0.6 + scrollOffset) * 0.035 +
+        Math.sin(scrollOffset * 3.2) * 0.025;
       animatedGroup.current.rotation.y =
-        Math.sin(elapsed * 0.42 + scrollOffset * 0.7) * 0.04;
+        Math.sin(elapsed * 0.42 + scrollOffset * 0.7) * 0.055 +
+        Math.sin(scrollOffset * 2.6) * 0.045;
       animatedGroup.current.rotation.z =
-        Math.cos(elapsed * 0.5 + scrollOffset) * 0.02;
+        Math.cos(elapsed * 0.5 + scrollOffset) * 0.028 +
+        Math.sin(scrollOffset * 3.8) * 0.02;
     } else {
       animatedGroup.current.rotation.y = elapsed * 0.13 + scrollOffset;
       animatedGroup.current.rotation.x =
@@ -194,8 +197,9 @@ const NormalizedModel = ({
     }
 
     animatedGroup.current.position.y =
-      Math.sin(elapsed * 0.75 + scrollOffset) * 0.065;
-    animatedGroup.current.position.x = Math.sin(scrollOffset * 1.2) * 0.035;
+      Math.sin(elapsed * 0.75 + scrollOffset) * 0.09 +
+      Math.sin(scrollOffset * 2.2) * 0.045;
+    animatedGroup.current.position.x = Math.sin(scrollOffset * 2.4) * 0.075;
   });
 
   return (
