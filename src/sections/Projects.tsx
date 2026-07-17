@@ -5,7 +5,7 @@ import gsap from "gsap";
 import { Suspense, useState } from "react";
 
 import { CanvasLoader } from "../components/CanvasLoader";
-import { DemoComputer } from "../components/DemoComputer";
+import { LaptopModel } from "../components/LaptopModel";
 import { WebGLGuard } from "../components/WebGLGuard";
 import { myProjects } from "../constants";
 import { referenceAsset } from "../constants/assets";
@@ -172,18 +172,18 @@ export const Projects = () => {
               </div>
             }
           >
-            <Canvas>
+            <Canvas camera={{ position: [0, 1.5, 5], fov: 36 }}>
               <ambientLight intensity={Math.PI} />
               <directionalLight position={[10, 10, 5]} />
 
               <Center>
                 <Suspense fallback={<CanvasLoader />}>
                   <group
-                    scale={2}
-                    position={[0, -3, 0]}
-                    rotation={[0, -0.1, 0]}
+                    scale={1.4}
+                    position={[0, -0.25, 0]}
+                    rotation={[0, 0.08, 0]}
                   >
-                    <DemoComputer texture={currentProject.texture} />
+                    <LaptopModel screenTexture={currentProject.texture} />
                   </group>
                 </Suspense>
               </Center>

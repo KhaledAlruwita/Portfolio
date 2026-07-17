@@ -6,7 +6,12 @@ import { links } from "../constants";
 
 const HeroScene = lazy(() => import("../components/HeroScene"));
 
-export const Hero = () => {
+interface HeroProps {
+  isActivated: boolean;
+  onExplore: () => void;
+}
+
+export const Hero = ({ isActivated, onExplore }: HeroProps) => {
   const sceneFallback = (
     <div
       className="hero-fallback"
@@ -36,11 +41,15 @@ export const Hero = () => {
       </div>
 
       <div className="absolute inset-0 size-full">
-        <WebGLGuard fallback={sceneFallback}>
-          <Suspense fallback={sceneFallback}>
-            <HeroScene />
-          </Suspense>
-        </WebGLGuard>
+        {isActivated ? (
+          <WebGLGuard fallback={sceneFallback}>
+            <Suspense fallback={sceneFallback}>
+              <HeroScene />
+            </Suspense>
+          </WebGLGuard>
+        ) : (
+          sceneFallback
+        )}
       </div>
 
       <div className="c-space absolute bottom-7 left-0 right-0 z-10 mx-auto flex w-full max-w-3xl flex-col gap-3 sm:flex-row">
@@ -48,8 +57,12 @@ export const Hero = () => {
           isBeam
           containerClass="sm:w-fit w-full sm:min-w-96"
           href="#projects"
+          onClick={onExplore}
         >
-          Explore my work
+          <span className="explore-label">
+            <strong>Explore my work</strong>
+            <small>Scroll down ↓</small>
+          </span>
         </Button>
 
         <Button href={links.cv} target="_blank" containerClass="w-full sm:w-44">

@@ -22,6 +22,7 @@ export const Button = ({
     return (
       <a
         href={href}
+        onClick={onClick}
         target={target}
         rel={target === "_blank" ? "noreferrer noopener" : undefined}
         className={cn("btn hover:opacity-85", containerClass)}
