@@ -1,9 +1,6 @@
-import Globe from "react-globe.gl";
-
+import { AboutModel } from "../components/AboutModel";
 import { Button } from "../components/Button";
-import { WebGLGuard } from "../components/WebGLGuard";
 import { techStackGroups } from "../constants";
-import { referenceAsset } from "../constants/assets";
 
 export const About = () => {
   return (
@@ -11,11 +8,7 @@ export const About = () => {
       <div className="grid grid-cols-1 items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
         <div className="flex flex-col gap-5">
           <div className="grid-container">
-            <img
-              src="/images/pfp.svg"
-              alt="Khaled Alruwita"
-              className="h-fit w-full rounded-2xl object-contain sm:h-[276px]"
-            />
+            <AboutModel kind="paper-airplane" label="Animated paper airplane" />
 
             <div>
               <p className="grid-headtext">Building dependable data systems</p>
@@ -51,11 +44,7 @@ export const About = () => {
 
         <div className="flex flex-col gap-5">
           <div className="grid-container">
-            <img
-              src={referenceAsset("assets/grid2.png")}
-              alt="Data engineering technology stack"
-              className="h-fit w-full object-contain sm:w-[276px]"
-            />
+            <AboutModel kind="paper" label="Animated stack of papers" />
 
             <div>
               <p className="grid-headtext">Tech Stack</p>
@@ -72,6 +61,16 @@ export const About = () => {
                 ))}
               </div>
             </div>
+          </div>
+        </div>
+
+        <div className="flex flex-col gap-5 md:col-span-2 xl:col-span-1">
+          <div className="grid-container">
+            <AboutModel kind="mailbox" label="Animated mailbox" />
+
+            <Button href="#contact" containerClass="w-full" isBeam>
+              Contact Me
+            </Button>
           </div>
 
           <div className="grid-container">
@@ -94,48 +93,6 @@ export const About = () => {
 
               <Button href="/CV.pdf" target="_blank" containerClass="w-full">
                 View in CV
-              </Button>
-            </div>
-          </div>
-        </div>
-
-        <div className="md:col-span-2 xl:col-span-1">
-          <div className="grid-container">
-            <div className="flex h-fit w-full items-center justify-center rounded-3xl sm:h-[326px]">
-              <WebGLGuard
-                fallback={
-                  <img
-                    src={referenceAsset("assets/earth-night.jpg")}
-                    alt="Riyadh, Saudi Arabia"
-                    className="globe-fallback"
-                  />
-                }
-              >
-                <Globe
-                  height={326}
-                  width={326}
-                  backgroundColor="rgba(0, 0, 0, 0)"
-                  showAtmosphere
-                  globeImageUrl={referenceAsset("assets/earth-night.jpg")}
-                  bumpImageUrl={referenceAsset("assets/earth-topology.png")}
-                  labelsData={[
-                    {
-                      lat: 24.7136,
-                      lng: 46.6753,
-                      text: "Riyadh",
-                      color: "white",
-                      size: 20,
-                    },
-                  ]}
-                />
-              </WebGLGuard>
-            </div>
-
-            <div>
-              <p className="grid-headtext">Based in Riyadh, Saudi Arabia</p>
-
-              <Button href="#contact" containerClass="w-full mt-6" isBeam>
-                Contact Me
               </Button>
             </div>
           </div>
