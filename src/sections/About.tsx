@@ -8,18 +8,6 @@ export const About = () => {
       <div className="grid grid-cols-1 items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
         <div className="flex flex-col gap-5">
           <div className="grid-container">
-            <AboutModel kind="paper-airplane" label="Animated paper airplane" />
-
-            <div>
-              <p className="grid-headtext">Building dependable data systems</p>
-              <p className="grid-subtext">
-                I design end-to-end pipelines and analytical platforms that make
-                data reliable, understandable, and ready for action.
-              </p>
-            </div>
-          </div>
-
-          <div className="grid-container">
             <div
               className="data-flow"
               aria-label="Raw data to business insight"

@@ -29,7 +29,7 @@ const modelConfig: Record<
 > = {
   mailbox: {
     fallback: "/models/mailbox-stretchers/images/TEX_PostOffice.png",
-    rotation: [0.08, -0.55, 0],
+    rotation: [0.04, 0.72, 0],
     scale: 2.6,
   },
   "paper-airplane": {
@@ -39,12 +39,12 @@ const modelConfig: Record<
   },
   arwing: {
     fallback: "/models/arwing/palette.png",
-    rotation: [0.18, -0.7, -0.08],
+    rotation: [0.05, -0.35, -Math.PI / 2],
     scale: 3.25,
   },
   certificate: {
     fallback: "/models/certificate/t01r01_award_bg1.png",
-    rotation: [-0.12, 0.18, 0.02],
+    rotation: [-0.06, 0.08, 0],
     scale: 3.35,
   },
 };
@@ -175,14 +175,27 @@ const NormalizedModel = ({
     );
     const scrollOffset = smoothedScroll.current;
 
-    animatedGroup.current.rotation.y = elapsed * 0.13 + scrollOffset;
-    animatedGroup.current.rotation.x =
-      Math.sin(elapsed * 0.55 + scrollOffset) * 0.12;
-    animatedGroup.current.rotation.z =
-      Math.cos(elapsed * 0.4 + scrollOffset) * 0.06;
+    const isPosed =
+      kind === "arwing" || kind === "mailbox" || kind === "certificate";
+
+    if (isPosed) {
+      animatedGroup.current.rotation.x =
+        Math.sin(elapsed * 0.6 + scrollOffset) * 0.025;
+      animatedGroup.current.rotation.y =
+        Math.sin(elapsed * 0.42 + scrollOffset * 0.7) * 0.04;
+      animatedGroup.current.rotation.z =
+        Math.cos(elapsed * 0.5 + scrollOffset) * 0.02;
+    } else {
+      animatedGroup.current.rotation.y = elapsed * 0.13 + scrollOffset;
+      animatedGroup.current.rotation.x =
+        Math.sin(elapsed * 0.55 + scrollOffset) * 0.12;
+      animatedGroup.current.rotation.z =
+        Math.cos(elapsed * 0.4 + scrollOffset) * 0.06;
+    }
+
     animatedGroup.current.position.y =
-      Math.sin(elapsed * 0.9 + scrollOffset) * 0.1;
-    animatedGroup.current.position.x = Math.sin(scrollOffset * 1.4) * 0.08;
+      Math.sin(elapsed * 0.75 + scrollOffset) * 0.065;
+    animatedGroup.current.position.x = Math.sin(scrollOffset * 1.2) * 0.035;
   });
 
   return (

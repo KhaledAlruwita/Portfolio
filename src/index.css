@@ -81,6 +81,18 @@ section {
     @apply relative inline-flex h-3 w-3 rounded-full bg-green-500;
   }
 
+  .explore-label {
+    @apply flex items-center gap-2;
+  }
+
+  .explore-label strong {
+    @apply font-medium;
+  }
+
+  .explore-label small {
+    @apply text-xs text-white-600;
+  }
+
   /* hero section */
   .hero_tag {
     @apply text-center font-generalsans text-3xl font-black !leading-normal sm:text-4xl md:text-5xl xl:text-6xl;

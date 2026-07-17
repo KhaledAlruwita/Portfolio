@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { links, navLinks } from "../constants";
+import { navLinks } from "../constants";
 import { referenceAsset } from "../constants/assets";
 import { cn } from "../lib/utils";
 
@@ -17,26 +17,21 @@ const NavItems = ({ onNavigate }: NavItemsProps) => (
         </a>
       </li>
     ))}
-
-    <li className="nav-li">
-      <a
-        href={links.sourceCode}
-        target="_blank"
-        rel="noreferrer noopener"
-        className="nav-li_a"
-        onClick={onNavigate}
-      >
-        GitHub
-      </a>
-    </li>
   </ul>
 );
 
-export const Navbar = () => {
+export const Navbar = ({
+  onRevealSections,
+}: {
+  onRevealSections: () => void;
+}) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleMenu = () => setIsOpen((prevOpen) => !prevOpen);
-  const closeMenu = () => setIsOpen(false);
+  const closeMenu = () => {
+    onRevealSections();
+    setIsOpen(false);
+  };
 
   return (
     <header className="fixed left-0 right-0 top-0 z-50 border-b border-white/5 bg-black/80 backdrop-blur-xl">

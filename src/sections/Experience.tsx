@@ -2,8 +2,8 @@ import { OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import { Suspense } from "react";
 
+import { BriefcaseModel } from "../components/BriefcaseModel";
 import { CanvasLoader } from "../components/CanvasLoader";
-import { LaptopModel } from "../components/LaptopModel";
 import { WebGLGuard } from "../components/WebGLGuard";
 import { workExperiences } from "../constants";
 
@@ -41,8 +41,8 @@ export const Experience = () => {
                 />
 
                 <Suspense fallback={<CanvasLoader />}>
-                  <group scale={1.55} position={[0, -0.34, 0]}>
-                    <LaptopModel />
+                  <group scale={1.05} position={[0, -0.05, 0]}>
+                    <BriefcaseModel />
                   </group>
                 </Suspense>
 

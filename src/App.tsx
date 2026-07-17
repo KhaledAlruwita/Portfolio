@@ -1,4 +1,4 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useCallback, useEffect, useState } from "react";
 
 import { Footer } from "./sections/Footer";
 import { Hero } from "./sections/Hero";
@@ -27,24 +27,67 @@ const SectionFallback = ({ id }: { id: string }) => (
 );
 
 function App() {
+  const [showSections, setShowSections] = useState(false);
+  const revealSections = useCallback(() => setShowSections(true), []);
+
+  useEffect(() => {
+    if (showSections) return;
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (["ArrowDown", "PageDown", " "].includes(event.key)) {
+        revealSections();
+      }
+    };
+
+    window.addEventListener("wheel", revealSections, {
+      passive: true,
+      once: true,
+    });
+    window.addEventListener("touchmove", revealSections, {
+      passive: true,
+      once: true,
+    });
+    window.addEventListener("scroll", revealSections, {
+      passive: true,
+      once: true,
+    });
+    window.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      window.removeEventListener("wheel", revealSections);
+      window.removeEventListener("touchmove", revealSections);
+      window.removeEventListener("scroll", revealSections);
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [revealSections, showSections]);
+
   return (
     <main className="relative mx-auto max-w-7xl">
-      <Navbar />
-      <Hero />
-      <Suspense fallback={<SectionFallback id="about" />}>
-        <About />
-      </Suspense>
-      <Suspense fallback={<SectionFallback id="projects" />}>
-        <Projects />
-      </Suspense>
-      <Suspense fallback={<SectionFallback id="experience" />}>
-        <Experience />
-      </Suspense>
-      <Suspense fallback={<SectionFallback id="contact" />}>
-        <Contact />
-      </Suspense>
+      <Navbar onRevealSections={revealSections} />
+      <Hero isActivated={showSections} onExplore={revealSections} />
 
-      <Footer />
+      {showSections ? (
+        <>
+          <Suspense fallback={<SectionFallback id="about" />}>
+            <About />
+          </Suspense>
+          <Suspense fallback={<SectionFallback id="projects" />}>
+            <Projects />
+          </Suspense>
+          <Suspense fallback={<SectionFallback id="experience" />}>
+            <Experience />
+          </Suspense>
+          <Suspense fallback={<SectionFallback id="contact" />}>
+            <Contact />
+          </Suspense>
+
+          <Footer />
+        </>
+      ) : (
+        <div className="sr-only" aria-live="polite">
+          Scroll down to load the rest of the portfolio.
+        </div>
+      )}
     </main>
   );
 }
