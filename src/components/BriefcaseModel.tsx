@@ -4,7 +4,7 @@ import * as THREE from "three";
 import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 
 const BRIEFCASE_MODEL = "/models/briefcase/model.obj";
-const BRIEFCASE_TEXTURE = "/models/briefcase/texture.png";
+const BRIEFCASE_TEXTURE = "/models/briefcase/texture.webp";
 
 export const BriefcaseModel = () => {
   const source = useLoader(OBJLoader, BRIEFCASE_MODEL);

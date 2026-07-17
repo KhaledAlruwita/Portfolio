@@ -1,4 +1,5 @@
 import { lazy, Suspense } from "react";
+import { useMediaQuery } from "react-responsive";
 
 import { Button } from "../components/Button";
 import { WebGLGuard } from "../components/WebGLGuard";
@@ -12,13 +13,14 @@ interface HeroProps {
 }
 
 export const Hero = ({ isActivated, onExplore }: HeroProps) => {
+  const isMobile = useMediaQuery({ maxWidth: 767 });
+  const prefersReducedMotion = useMediaQuery({
+    query: "(prefers-reduced-motion: reduce)",
+  });
   const sceneFallback = (
-    <div
-      className="hero-fallback"
-      aria-label="Data engineering workspace illustration"
-    >
+    <div className="hero-fallback" aria-hidden="true">
       <div className="hero-fallback_glow" />
-      <img src="/images/pfp.svg" alt="Khaled Alruwita" />
+      <img src="/images/pfp.svg" alt="" />
       <div className="hero-fallback_code">Python · SQL · PySpark · Airflow</div>
     </div>
   );
@@ -41,7 +43,7 @@ export const Hero = ({ isActivated, onExplore }: HeroProps) => {
       </div>
 
       <div className="absolute inset-0 size-full">
-        {isActivated ? (
+        {isActivated && !isMobile && !prefersReducedMotion ? (
           <WebGLGuard fallback={sceneFallback}>
             <Suspense fallback={sceneFallback}>
               <HeroScene />

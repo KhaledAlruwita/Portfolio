@@ -11,12 +11,10 @@ import { clone as cloneSkeleton } from "three/examples/jsm/utils/SkeletonUtils.j
 import { CanvasLoader } from "./CanvasLoader";
 import { WebGLGuard } from "./WebGLGuard";
 
-export type AboutModelKind =
-  "mailbox" | "paper-airplane" | "arwing" | "certificate";
+export type AboutModelKind = "mailbox" | "arwing" | "certificate";
 
 interface AboutModelProps {
   kind: AboutModelKind;
-  label: string;
 }
 
 const modelConfig: Record<
@@ -32,18 +30,13 @@ const modelConfig: Record<
     rotation: [0.04, 0.72, 0],
     scale: 2.6,
   },
-  "paper-airplane": {
-    fallback: "/models/about/paper-airplane/pp_paper_airplane_diff.png",
-    rotation: [0.2, -0.55, -0.12],
-    scale: 3.1,
-  },
   arwing: {
     fallback: "/models/arwing/palette.png",
     rotation: [0.05, -0.35, -Math.PI / 2],
     scale: 3.25,
   },
   certificate: {
-    fallback: "/models/certificate/t01r01_award_bg1.png",
+    fallback: "/models/certificate/certificate.webp",
     rotation: [-0.06, 0.08, 0],
     scale: 3.35,
   },
@@ -209,18 +202,27 @@ const NormalizedModel = ({
   );
 };
 
-export const AboutModel = ({ kind, label }: AboutModelProps) => {
+export const AboutModel = ({ kind }: AboutModelProps) => {
   const config = modelConfig[kind];
 
   return (
-    <div className={`about-model about-model--${kind}`} aria-label={label}>
+    <div className={`about-model about-model--${kind}`} aria-hidden="true">
       <WebGLGuard
-        fallback={<img src={config.fallback} alt="" aria-hidden="true" />}
+        fallback={
+          <img
+            src={config.fallback}
+            alt=""
+            aria-hidden="true"
+            loading="lazy"
+            decoding="async"
+          />
+        }
       >
         <Canvas
           camera={{ position: [0, 0.2, 4.6], fov: 34 }}
           dpr={[1, 1.5]}
           shadows
+          aria-hidden="true"
         >
           <ambientLight intensity={2.4} />
           <directionalLight position={[4, 5, 5]} intensity={3.2} castShadow />
@@ -232,11 +234,6 @@ export const AboutModel = ({ kind, label }: AboutModelProps) => {
                 kind="mailbox"
                 modelPath="/models/mailbox-stretchers/model.dae"
               />
-            ) : kind === "paper-airplane" ? (
-              <ColladaSource
-                kind="paper-airplane"
-                modelPath="/models/about/paper-airplane/model.dae"
-              />
             ) : kind === "arwing" ? (
               <TexturedObjSource
                 kind="arwing"
@@ -247,7 +244,7 @@ export const AboutModel = ({ kind, label }: AboutModelProps) => {
               <TexturedObjSource
                 kind="certificate"
                 modelPath="/models/certificate/model.obj"
-                texturePath="/models/certificate/t01r01_award_bg1.png"
+                texturePath="/models/certificate/certificate.webp"
                 transparent
               />
             )}

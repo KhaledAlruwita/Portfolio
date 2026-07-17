@@ -1,18 +1,12 @@
 import { useGSAP } from "@gsap/react";
-import { useGLTF } from "@react-three/drei";
-import { useFrame, type MeshProps } from "@react-three/fiber";
+import { useFrame, type GroupProps } from "@react-three/fiber";
 import gsap from "gsap";
 import { useRef } from "react";
 import * as THREE from "three";
 
-import { referenceAsset } from "../constants/assets";
-
-const TARGET_MODEL = referenceAsset("models/target.gltf");
-
-export const Target = (props: MeshProps) => {
-  const targetRef = useRef<THREE.Mesh>(null);
+export const Target = (props: GroupProps) => {
+  const targetRef = useRef<THREE.Group>(null);
   const smoothedScroll = useRef(0);
-  const { scene } = useGLTF(TARGET_MODEL);
 
   useGSAP(() => {
     if (!targetRef.current) return;
@@ -42,8 +36,34 @@ export const Target = (props: MeshProps) => {
   });
 
   return (
-    <mesh {...props} ref={targetRef} rotation={[0, Math.PI / 5, 0]} scale={1.5}>
-      <primitive object={scene} />
-    </mesh>
+    <group
+      {...props}
+      ref={targetRef}
+      rotation={[0, Math.PI / 5, 0]}
+      scale={1.5}
+    >
+      <group rotation={[Math.PI / 2, 0, 0]}>
+        <mesh>
+          <cylinderGeometry args={[1.2, 1.2, 0.18, 32]} />
+          <meshStandardMaterial color="#e5e7eb" roughness={0.52} />
+        </mesh>
+        <mesh position={[0, 0.11, 0]}>
+          <cylinderGeometry args={[0.72, 0.72, 0.04, 32]} />
+          <meshStandardMaterial color="#e11d48" roughness={0.45} />
+        </mesh>
+        <mesh position={[0, 0.14, 0]}>
+          <cylinderGeometry args={[0.28, 0.28, 0.04, 32]} />
+          <meshStandardMaterial color="#f8fafc" roughness={0.45} />
+        </mesh>
+      </group>
+      <mesh position={[-0.48, -1.45, 0]} rotation={[0, 0, -0.16]}>
+        <boxGeometry args={[0.2, 1.8, 0.22]} />
+        <meshStandardMaterial color="#78350f" roughness={0.75} />
+      </mesh>
+      <mesh position={[0.48, -1.45, 0]} rotation={[0, 0, 0.16]}>
+        <boxGeometry args={[0.2, 1.8, 0.22]} />
+        <meshStandardMaterial color="#78350f" roughness={0.75} />
+      </mesh>
+    </group>
   );
 };

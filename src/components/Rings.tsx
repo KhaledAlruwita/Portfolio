@@ -1,10 +1,8 @@
 import { useGSAP } from "@gsap/react";
-import { Center, useTexture } from "@react-three/drei";
+import { Center } from "@react-three/drei";
 import gsap from "gsap";
 import { useCallback, useRef } from "react";
 import type * as THREE from "three";
-
-import { referenceAsset } from "../constants/assets";
 
 interface RingsProps {
   position: [number, number, number];
@@ -17,8 +15,6 @@ export const Rings = ({ position }: RingsProps) => {
       refList.current.push(mesh);
     }
   }, []);
-
-  const texture = useTexture(referenceAsset("textures/rings.png"));
 
   useGSAP(
     () => {
@@ -57,7 +53,13 @@ export const Rings = ({ position }: RingsProps) => {
           <mesh key={index} ref={getRef}>
             <torusGeometry args={[(index + 1) * 0.5, 0.1]} />
 
-            <meshMatcapMaterial matcap={texture} toneMapped={false} />
+            <meshStandardMaterial
+              color="#67e8f9"
+              emissive="#0891b2"
+              emissiveIntensity={0.3}
+              metalness={0.45}
+              roughness={0.28}
+            />
           </mesh>
         ))}
       </group>

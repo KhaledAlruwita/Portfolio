@@ -8,9 +8,8 @@ import { calculateSizes } from "../lib/utils";
 import { CanvasLoader } from "./CanvasLoader";
 import { Cube } from "./Cube";
 import { FloatingObjModel } from "./FloatingObjModel";
-import { HackerRoom } from "./HackerRoom";
 import { HeroCamera } from "./HeroCamera";
-import { ReactLogo } from "./ReactLogo";
+import { LaptopModel } from "./LaptopModel";
 import { Rings } from "./Rings";
 import { Target } from "./Target";
 
@@ -44,26 +43,27 @@ const HeroScene = () => {
   const sizes = calculateSizes(isSmall, isMobile, isTablet);
 
   return (
-    <Canvas className="size-full">
+    <Canvas className="size-full" aria-hidden="true">
       <Suspense fallback={<CanvasLoader />}>
         <PerspectiveCamera makeDefault position={[0, 0, 30]} />
 
         <HeroCamera isMobile={isMobile}>
-          <HackerRoom
-            scale={sizes.deskScale}
-            position={sizes.deskPosition as Vector3}
-            rotation={[0.1, -Math.PI, 0]}
-          />
+          <group
+            scale={5.4}
+            position={[0, -1.8, 0]}
+            rotation={[0.08, -0.18, 0]}
+          >
+            <LaptopModel />
+          </group>
         </HeroCamera>
 
         <ScrollReactiveObjects>
           <Target position={sizes.targetPosition as Vector3} />
-          <ReactLogo position={sizes.reactLogoPosition as Vector3} />
           <Rings position={sizes.ringPosition as [number, number, number]} />
           <Cube position={sizes.cubePosition as Vector3} />
           <FloatingObjModel
             modelPath="/models/blitz-ball/model.obj"
-            texturePath="/models/blitz-ball/texture.png"
+            texturePath="/models/blitz-ball/texture.webp"
             position={sizes.blitzBallPosition as [number, number, number]}
             baseRotation={[0.2, -0.35, 0]}
             targetSize={3.2}

@@ -3,28 +3,13 @@
 */
 
 import { useGSAP } from "@gsap/react";
-import { Float, useGLTF, useTexture } from "@react-three/drei";
+import { Float } from "@react-three/drei";
 import type { GroupProps } from "@react-three/fiber";
 import gsap from "gsap";
 import { useRef, useState } from "react";
 import type * as THREE from "three";
-import { GLTF } from "three-stdlib";
-
-import { referenceAsset } from "../constants/assets";
-
-const CUBE_MODEL = referenceAsset("models/cube.glb");
-
-type GLTFResult = GLTF & {
-  nodes: {
-    Cube: THREE.Mesh;
-  };
-  materials: unknown;
-};
 
 export const Cube = (props: GroupProps) => {
-  const { nodes } = useGLTF(CUBE_MODEL) as GLTFResult;
-  const texture = useTexture(referenceAsset("textures/cube.png"));
-
   const cubeRef = useRef<THREE.Mesh>(null);
   const [hovered, setHovered] = useState(false);
 
@@ -59,15 +44,18 @@ export const Cube = (props: GroupProps) => {
           ref={cubeRef}
           castShadow
           receiveShadow
-          geometry={nodes.Cube.geometry}
-          material={nodes.Cube.material}
           onPointerEnter={() => setHovered(true)}
         >
-          <meshMatcapMaterial matcap={texture} toneMapped={false} />
+          <boxGeometry args={[2, 2, 2]} />
+          <meshStandardMaterial
+            color="#fb7185"
+            emissive="#7f1d1d"
+            emissiveIntensity={0.2}
+            metalness={0.18}
+            roughness={0.34}
+          />
         </mesh>
       </group>
     </Float>
   );
 };
-
-useGLTF.preload(CUBE_MODEL);
