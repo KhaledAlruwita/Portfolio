@@ -22,7 +22,7 @@ export const Hero = () => {
     <section className="relative flex min-h-screen w-full flex-col" id="home">
       <div className="c-space relative z-10 mx-auto mt-20 flex w-full flex-col gap-3 sm:mt-32">
         <p className="text-center font-generalsans text-xl font-medium text-white sm:text-3xl">
-          Hi, I&apos;m Khaled Alruwita <span className="waving-hand">👋</span>
+          Hi, I&apos;m Khaled Alruwita <span className="meteor-icon">☄️</span>
         </p>
 
         <p className="hero_tag text-gray_gradient">

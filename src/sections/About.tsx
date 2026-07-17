@@ -1,24 +1,11 @@
-import { useState } from "react";
 import Globe from "react-globe.gl";
 
 import { Button } from "../components/Button";
 import { WebGLGuard } from "../components/WebGLGuard";
-import { links } from "../constants";
+import { techStackGroups } from "../constants";
 import { referenceAsset } from "../constants/assets";
 
 export const About = () => {
-  const [hasCopied, setHasCopied] = useState(false);
-
-  const handleCopy = () => {
-    void navigator.clipboard.writeText(links.contactEmail);
-
-    setHasCopied(true);
-
-    setTimeout(() => {
-      setHasCopied(false);
-    }, 2000);
-  };
-
   return (
     <section className="c-space my-20" id="about">
       <div className="grid h-full grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3 xl:grid-rows-6">
@@ -50,10 +37,18 @@ export const About = () => {
 
             <div>
               <p className="grid-headtext">Tech Stack</p>
-              <p className="grid-subtext">
-                Python, SQL, PySpark, Airflow, PostgreSQL, Power BI, Docker,
-                Linux, and cloud services across AWS, Alibaba, and Oracle.
-              </p>
+              <div className="stack-groups">
+                {techStackGroups.map(({ label, tools }) => (
+                  <div className="stack-group" key={label}>
+                    <span>{label}</span>
+                    <div>
+                      {tools.map((tool) => (
+                        <strong key={tool}>{tool}</strong>
+                      ))}
+                    </div>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -93,11 +88,6 @@ export const About = () => {
             <div>
               <p className="grid-headtext">Based in Riyadh, Saudi Arabia</p>
 
-              <p className="grid-subtext">
-                Open to data engineering, analytics, and automation
-                opportunities where measurable business impact matters.
-              </p>
-
               <Button href="#contact" containerClass="w-full mt-10" isBeam>
                 Contact Me
               </Button>
@@ -121,9 +111,9 @@ export const About = () => {
             <div>
               <p className="grid-headtext">From raw data to decisions</p>
               <p className="grid-subtext">
-                My work combines engineering discipline with analytical
-                thinking: automate the repetitive parts, surface quality issues
-                early, and make the final output useful to people.
+                I build automated ETL workflows, dimensional data models, data
+                quality checks, and analytics-ready datasets using Python, SQL,
+                PySpark, Airflow, and PostgreSQL.
               </p>
             </div>
           </div>
@@ -131,29 +121,26 @@ export const About = () => {
 
         <div className="xl:col-span-1 xl:row-span-2">
           <div className="grid-container">
-            <img
-              src={referenceAsset("assets/grid4.png")}
-              alt="Grid 4"
-              className="h-fit w-full object-cover sm:h-[276px] sm:object-top md:h-[126px]"
-            />
+            <div className="certificate-mark" aria-hidden="true">
+              ✓
+            </div>
 
-            <div className="space-y-2">
-              <p className="grid-subtext text-center">
-                Reach me directly by email
-              </p>
+            <div className="space-y-3">
+              <p className="grid-headtext">My Certificates</p>
+              <ul className="certificate-list">
+                <li>
+                  <strong>CDMP® Associate</strong>
+                  <span>DAMA International</span>
+                </li>
+                <li>
+                  <strong>Business Analysis Fundamentals</strong>
+                  <span>Tuwaiq Academy</span>
+                </li>
+              </ul>
 
-              <div className="copy-container">
-                <Button onClick={handleCopy} containerClass="w-full">
-                  <img
-                    src={referenceAsset(
-                      hasCopied ? "assets/tick.svg" : "assets/copy.svg"
-                    )}
-                    alt={hasCopied ? "Check" : "Copy"}
-                    className="size-5"
-                  />
-                  {hasCopied ? "Copied to clipboard" : "Copy Email"}
-                </Button>
-              </div>
+              <Button href="/CV.pdf" target="_blank" containerClass="w-full">
+                View in CV
+              </Button>
             </div>
           </div>
         </div>

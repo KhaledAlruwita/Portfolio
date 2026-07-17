@@ -51,7 +51,7 @@ export const HackerRoom = (props: GroupProps) => {
   const { nodes, materials } = useGLTF(HACKER_ROOM_MODEL) as GLTFResult;
 
   const monitorTxt = useTexture(referenceAsset("textures/desk/monitor.png"));
-  const screenTxt = useTexture(referenceAsset("textures/desk/screen.png"));
+  const screenTxt = useTexture("/assets/data-screen.svg");
 
   return (
     <group {...props} dispose={null}>

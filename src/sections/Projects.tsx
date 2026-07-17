@@ -10,8 +10,10 @@ import { WebGLGuard } from "../components/WebGLGuard";
 import { myProjects } from "../constants";
 import { referenceAsset } from "../constants/assets";
 
+const projectOrder = [2, 0, 1, 3] as const;
+
 export const Projects = () => {
-  const [selectedProjectIndex, setSelectedProjectIndex] = useState(0);
+  const [selectedProjectIndex, setSelectedProjectIndex] = useState(2);
 
   const currentProject = myProjects[selectedProjectIndex];
   const projectCount = myProjects.length;
@@ -43,7 +45,26 @@ export const Projects = () => {
         to decision-support systems.
       </p>
 
-      <div className="mt-12 grid w-full grid-cols-1 gap-5 lg:grid-cols-2">
+      <div className="project-selector" aria-label="Choose a featured project">
+        {projectOrder.map((index) => {
+          const project = myProjects[index];
+
+          return (
+            <button
+              type="button"
+              key={project.title}
+              onClick={() => setSelectedProjectIndex(index)}
+              aria-pressed={selectedProjectIndex === index}
+              className={selectedProjectIndex === index ? "is-active" : ""}
+            >
+              <img src={project.logo} alt="" />
+              <span>{project.title}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      <div className="mt-5 grid w-full grid-cols-1 gap-5 lg:grid-cols-2">
         <div className="relative flex flex-col gap-5 px-5 py-10 shadow-2xl shadow-black-200 sm:p-10">
           <div className="absolute right-0 top-0">
             <img
