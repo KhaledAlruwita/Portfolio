@@ -1,6 +1,6 @@
 import { useGSAP } from "@gsap/react";
 import { useGLTF } from "@react-three/drei";
-import type { MeshProps } from "@react-three/fiber";
+import { useFrame, type MeshProps } from "@react-three/fiber";
 import gsap from "gsap";
 import { useRef } from "react";
 import type * as THREE from "three";
@@ -22,6 +22,15 @@ export const Target = (props: MeshProps) => {
       repeat: -1,
       yoyo: true,
     });
+  });
+
+  useFrame(({ clock }) => {
+    if (!targetRef.current) return;
+    const scroll = typeof window === "undefined" ? 0 : window.scrollY;
+    targetRef.current.rotation.x = Math.sin(clock.elapsedTime * 0.45) * 0.18;
+    targetRef.current.rotation.y =
+      Math.PI / 5 + clock.elapsedTime * 0.38 + scroll * 0.002;
+    targetRef.current.rotation.z = scroll * 0.0008;
   });
 
   return (
