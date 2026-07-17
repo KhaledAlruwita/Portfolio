@@ -17,6 +17,21 @@ export const navLinks = [
   { id: 5, name: "Contact", href: "#contact" },
 ] as const;
 
+export const techStackGroups = [
+  {
+    label: "Data Engineering",
+    tools: ["Python", "SQL", "PySpark", "Airflow", "PostgreSQL"],
+  },
+  {
+    label: "Analytics",
+    tools: ["Power BI", "Tableau", "Pandas", "Great Expectations"],
+  },
+  {
+    label: "Cloud & DevOps",
+    tools: ["AWS", "Alibaba Cloud", "Oracle Cloud", "Docker", "Linux", "Git"],
+  },
+] as const;
+
 export const myProjects = [
   {
     title: "SITE — Data Engineering Toolkit",
@@ -100,38 +115,69 @@ export const myProjects = [
   },
 ] as const;
 
-export const workExperiences = [
+interface ExperienceRole {
+  position: string;
+  duration: string;
+  location: string;
+}
+
+interface WorkExperience {
+  id: number;
+  name: string;
+  employment: string;
+  icon: string;
+  roles?: ExperienceRole[];
+  position?: string;
+  duration?: string;
+  location?: string;
+  description?: string;
+  skills?: string[];
+}
+
+export const workExperiences: WorkExperience[] = [
   {
     id: 1,
-    name: "SITE",
-    pos: "Data Engineer Trainee",
-    duration: "Aug 2025 — Present",
-    title:
-      "Built automated SQL validation and optimization tooling, a daily ETL pipeline, and dimensional warehouse models that improved data quality and transformation visibility.",
-    icon: "/assets/site.svg",
-    animation: "victory",
+    name: "Al Rajhi Bank",
+    employment: "Full-time · 6 mos",
+    icon: "/assets/rajhi.svg",
+    roles: [
+      {
+        position: "Business Intelligence & Reporting Analyst",
+        duration: "Jul 2026 — Present · 1 mo",
+        location: "On-site",
+      },
+      {
+        position: "IT GDP",
+        duration: "Feb 2026 — Jul 2026 · 6 mos",
+        location: "Riyadh, Saudi Arabia",
+      },
+    ],
   },
   {
     id: 2,
-    name: "Keeta Technology Arabia",
-    pos: "Data Analyst Intern",
-    duration: "Jun 2025 — Aug 2025",
-    title:
-      "Performed data cleaning, validation, and quality checks on large datasets while supporting internal data-management and reporting standards.",
-    icon: "/assets/keeta.svg",
-    animation: "clapping",
+    name: "SITE",
+    employment: "Internship · 7 mos",
+    position: "Data Engineer",
+    duration: "Aug 2025 — Feb 2026",
+    location: "Riyadh, Saudi Arabia",
+    description:
+      "Developed a data engineering toolkit to automate, validate, analyze, and optimize SQL transformations, plus a daily ETL pipeline and dimensional warehouse models.",
+    skills: ["PostgreSQL", "SQL", "Python", "ETL", "Data Modeling"],
+    icon: "/assets/site.svg",
   },
   {
     id: 3,
-    name: "Prince Sattam Bin Abdulaziz University",
-    pos: "BSc, Computer Information Systems",
-    duration: "Aug 2021 — May 2025",
-    title:
-      "Graduated with a foundation in information systems, analytics, software development, and data engineering; completed an award-winning traffic simulation project.",
-    icon: "/assets/psau.svg",
-    animation: "salute",
+    name: "Keeta",
+    employment: "Internship · 3 mos",
+    position: "Data Analyst Intern",
+    duration: "Jun 2025 — Aug 2025",
+    location: "Riyadh, Saudi Arabia",
+    description:
+      "Performed data cleaning, validation, and quality checks on large datasets, then standardized raw data to improve accuracy and usability.",
+    skills: ["Microsoft Excel", "Data Scraping", "Data Quality", "Reporting"],
+    icon: "/assets/keeta.svg",
   },
-] as const;
+];
 
 export const socialLinks = [
   { name: "LinkedIn", icon: "/assets/linkedin.svg", url: links.linkedin },

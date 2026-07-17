@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1568 1576">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#07111f"/><stop offset="1" stop-color="#02060d"/></linearGradient>
+    <linearGradient id="line" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#38bdf8"/><stop offset="1" stop-color="#34d399"/></linearGradient>
+  </defs>
+  <rect width="1568" height="1576" rx="28" fill="url(#bg)"/>
+  <g fill="none" stroke="#1e293b" stroke-width="2" opacity=".55">
+    <path d="M0 140h1568M0 280h1568M0 420h1568M0 560h1568M0 700h1568M0 840h1568M0 980h1568M0 1120h1568M0 1260h1568M0 1400h1568"/>
+    <path d="M140 0v1576M280 0v1576M420 0v1576M560 0v1576M700 0v1576M840 0v1576M980 0v1576M1120 0v1576M1260 0v1576M1400 0v1576"/>
+  </g>
+  <text x="92" y="126" fill="#e2e8f0" font-family="monospace" font-size="48" font-weight="700">DATA PIPELINE HEALTH</text>
+  <text x="92" y="180" fill="#64748b" font-family="monospace" font-size="24">SQL VALIDATION · ETL · DATA QUALITY</text>
+  <g transform="translate(92 250)">
+    <rect width="420" height="220" rx="24" fill="#0f172a" stroke="#1e3a5f"/>
+    <text x="34" y="54" fill="#94a3b8" font-family="monospace" font-size="23">PIPELINE SUCCESS</text>
+    <text x="34" y="133" fill="#34d399" font-family="monospace" font-size="67" font-weight="700">99.8%</text>
+    <text x="34" y="181" fill="#64748b" font-family="monospace" font-size="22">24 workflows healthy</text>
+  </g>
+  <g transform="translate(548 250)">
+    <rect width="420" height="220" rx="24" fill="#0f172a" stroke="#1e3a5f"/>
+    <text x="34" y="54" fill="#94a3b8" font-family="monospace" font-size="23">QUALITY CHECKS</text>
+    <text x="34" y="133" fill="#38bdf8" font-family="monospace" font-size="67" font-weight="700">1,284</text>
+    <text x="34" y="181" fill="#64748b" font-family="monospace" font-size="22">all validations passed</text>
+  </g>
+  <g transform="translate(1004 250)">
+    <rect width="472" height="220" rx="24" fill="#0f172a" stroke="#1e3a5f"/>
+    <text x="34" y="54" fill="#94a3b8" font-family="monospace" font-size="23">LAST REFRESH</text>
+    <text x="34" y="133" fill="#e2e8f0" font-family="monospace" font-size="57" font-weight="700">08:42</text>
+    <text x="34" y="181" fill="#34d399" font-family="monospace" font-size="22">● on schedule</text>
+  </g>
+  <g transform="translate(92 540)">
+    <rect width="1384" height="630" rx="26" fill="#0b1220" stroke="#1e3a5f"/>
+    <text x="38" y="62" fill="#94a3b8" font-family="monospace" font-size="24">DAILY ROW THROUGHPUT</text>
+    <path d="M62 485 C180 460 230 390 330 410 S510 300 610 325 S780 220 880 255 S1050 160 1140 190 S1260 110 1320 120" fill="none" stroke="url(#line)" stroke-width="12" stroke-linecap="round"/>
+    <path d="M62 485 C180 460 230 390 330 410 S510 300 610 325 S780 220 880 255 S1050 160 1140 190 S1260 110 1320 120 L1320 550 L62 550Z" fill="#38bdf8" opacity=".07"/>
+    <g fill="#38bdf8"><circle cx="330" cy="410" r="12"/><circle cx="610" cy="325" r="12"/><circle cx="880" cy="255" r="12"/><circle cx="1140" cy="190" r="12"/><circle cx="1320" cy="120" r="12"/></g>
+  </g>
+  <g transform="translate(92 1235)" font-family="monospace">
+    <rect width="1384" height="245" rx="26" fill="#0b1220" stroke="#1e3a5f"/>
+    <text x="38" y="58" fill="#94a3b8" font-size="24">ACTIVE LAYERS</text>
+    <g font-size="28" font-weight="700">
+      <rect x="38" y="94" width="250" height="92" rx="18" fill="#78350f" opacity=".55"/><text x="87" y="150" fill="#fdba74">BRONZE</text>
+      <path d="M310 140h70" stroke="#475569" stroke-width="8"/>
+      <rect x="400" y="94" width="250" height="92" rx="18" fill="#334155"/><text x="449" y="150" fill="#e2e8f0">SILVER</text>
+      <path d="M672 140h70" stroke="#475569" stroke-width="8"/>
+      <rect x="762" y="94" width="250" height="92" rx="18" fill="#713f12" opacity=".65"/><text x="825" y="150" fill="#fde68a">GOLD</text>
+      <path d="M1034 140h70" stroke="#475569" stroke-width="8"/>
+      <rect x="1124" y="94" width="222" height="92" rx="18" fill="#064e3b" opacity=".7"/><text x="1166" y="150" fill="#6ee7b7">BI READY</text>
+    </g>
+  </g>
+</svg>
+
