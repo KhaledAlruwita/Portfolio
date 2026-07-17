@@ -314,45 +314,6 @@ section {
   display: inline-block;
 }
 
-.scroll-arwing {
-  pointer-events: none;
-  position: fixed;
-  right: clamp(1rem, 4vw, 4rem);
-  bottom: clamp(4.5rem, 11vh, 7rem);
-  z-index: 15;
-  width: clamp(6.5rem, 9vw, 8.5rem);
-  aspect-ratio: 1;
-  opacity: 0;
-  transform: translate3d(2rem, 1rem, 0) scale(0.8);
-  transition:
-    opacity 300ms ease,
-    transform 450ms ease;
-}
-
-.scroll-arwing.is-visible {
-  opacity: 0.64;
-  transform: translate3d(0, 0, 0) scale(1);
-}
-
-.scroll-arwing canvas,
-.scroll-arwing > div {
-  width: 100% !important;
-  height: 100% !important;
-}
-
-@media (max-width: 767px) {
-  .scroll-arwing {
-    right: 0.25rem;
-    bottom: 4rem;
-    width: 5.5rem;
-    opacity: 0;
-  }
-
-  .scroll-arwing.is-visible {
-    opacity: 0.48;
-  }
-}
-
 .certificate-mark {
   display: grid;
   min-height: 6rem;

@@ -2,7 +2,7 @@ import { PerspectiveCamera } from "@react-three/drei";
 import { Canvas, useFrame, type Vector3 } from "@react-three/fiber";
 import { type ReactNode, Suspense, useRef } from "react";
 import { useMediaQuery } from "react-responsive";
-import type * as THREE from "three";
+import * as THREE from "three";
 
 import { calculateSizes } from "../lib/utils";
 import { CanvasLoader } from "./CanvasLoader";
@@ -16,10 +16,18 @@ import { Target } from "./Target";
 
 const ScrollReactiveObjects = ({ children }: { children: ReactNode }) => {
   const groupRef = useRef<THREE.Group>(null);
+  const smoothedScroll = useRef(0);
 
-  useFrame(({ clock }) => {
+  useFrame(({ clock }, delta) => {
     if (!groupRef.current) return;
-    const scroll = typeof window === "undefined" ? 0 : window.scrollY;
+    const targetScroll = typeof window === "undefined" ? 0 : window.scrollY;
+    smoothedScroll.current = THREE.MathUtils.damp(
+      smoothedScroll.current,
+      targetScroll,
+      2,
+      delta
+    );
+    const scroll = smoothedScroll.current;
     groupRef.current.position.x = Math.sin(scroll * 0.002) * 0.45;
     groupRef.current.position.y =
       -Math.min(scroll * 0.0025, 2.5) +

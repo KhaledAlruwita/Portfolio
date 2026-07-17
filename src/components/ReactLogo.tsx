@@ -9,7 +9,7 @@
 import { Float, useGLTF } from "@react-three/drei";
 import { useFrame, type GroupProps } from "@react-three/fiber";
 import { useRef } from "react";
-import type * as THREE from "three";
+import * as THREE from "three";
 import type { GLTF } from "three-stdlib";
 
 import { referenceAsset } from "../constants/assets";
@@ -28,13 +28,21 @@ type GLTFResult = GLTF & {
 export const ReactLogo = (props: GroupProps) => {
   const { nodes, materials } = useGLTF(REACT_MODEL) as GLTFResult;
   const groupRef = useRef<THREE.Group>(null);
+  const smoothedScroll = useRef(0);
 
-  useFrame(({ clock }) => {
+  useFrame(({ clock }, delta) => {
     if (!groupRef.current) return;
-    const scroll = typeof window === "undefined" ? 0 : window.scrollY;
-    groupRef.current.rotation.x = clock.elapsedTime * 0.3 + scroll * 0.001;
-    groupRef.current.rotation.y = clock.elapsedTime * 0.5 + scroll * 0.0022;
-    groupRef.current.rotation.z = clock.elapsedTime * 0.2 + scroll * 0.0007;
+    const targetScroll = typeof window === "undefined" ? 0 : window.scrollY;
+    smoothedScroll.current = THREE.MathUtils.damp(
+      smoothedScroll.current,
+      targetScroll,
+      2,
+      delta
+    );
+    const scroll = smoothedScroll.current;
+    groupRef.current.rotation.x = clock.elapsedTime * 0.3 + scroll * 0.0002;
+    groupRef.current.rotation.y = clock.elapsedTime * 0.5 + scroll * 0.0004;
+    groupRef.current.rotation.z = clock.elapsedTime * 0.2 + scroll * 0.00015;
   });
 
   return (

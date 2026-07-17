@@ -12,7 +12,7 @@ import { CanvasLoader } from "./CanvasLoader";
 import { WebGLGuard } from "./WebGLGuard";
 
 export type AboutModelKind =
-  "mailbox" | "paper-airplane" | "develop" | "certificate";
+  "mailbox" | "paper-airplane" | "arwing" | "certificate";
 
 interface AboutModelProps {
   kind: AboutModelKind;
@@ -28,19 +28,19 @@ const modelConfig: Record<
   }
 > = {
   mailbox: {
-    fallback: "/models/about/mailbox/3dptmailbox.png",
-    rotation: [0, -0.45, 0],
-    scale: 2.1,
+    fallback: "/models/mailbox-stretchers/images/TEX_PostOffice.png",
+    rotation: [0.08, -0.55, 0],
+    scale: 2.6,
   },
   "paper-airplane": {
     fallback: "/models/about/paper-airplane/pp_paper_airplane_diff.png",
     rotation: [0.2, -0.55, -0.12],
     scale: 3.1,
   },
-  develop: {
-    fallback: "/models/develop/MenuIcons.png",
-    rotation: [0.3, -0.4, 0.08],
-    scale: 3.1,
+  arwing: {
+    fallback: "/models/arwing/palette.png",
+    rotation: [0.18, -0.7, -0.08],
+    scale: 3.25,
   },
   certificate: {
     fallback: "/models/certificate/t01r01_award_bg1.png",
@@ -90,14 +90,17 @@ const TexturedObjSource = ({
   return <NormalizedModel kind={kind} model={model} />;
 };
 
-const PaperAirplaneSource = () => {
-  const airplane = useLoader(
-    ColladaLoader,
-    "/models/about/paper-airplane/model.dae"
-  ) as Collada;
-  const model = useMemo(() => cloneSkeleton(airplane.scene), [airplane.scene]);
+const ColladaSource = ({
+  kind,
+  modelPath,
+}: {
+  kind: AboutModelKind;
+  modelPath: string;
+}) => {
+  const source = useLoader(ColladaLoader, modelPath) as Collada;
+  const model = useMemo(() => cloneSkeleton(source.scene), [source.scene]);
 
-  return <NormalizedModel kind="paper-airplane" model={model} />;
+  return <NormalizedModel kind={kind} model={model} />;
 };
 
 const NormalizedModel = ({
@@ -108,6 +111,7 @@ const NormalizedModel = ({
   model: THREE.Object3D;
 }) => {
   const animatedGroup = useRef<THREE.Group>(null);
+  const smoothedScroll = useRef(0);
 
   const normalizedModel = useMemo(() => {
     model.traverse((child) => {
@@ -158,13 +162,20 @@ const NormalizedModel = ({
     return wrapper;
   }, [kind, model]);
 
-  useFrame(({ clock }) => {
+  useFrame(({ clock }, delta) => {
     if (!animatedGroup.current) return;
     const elapsed = clock.getElapsedTime();
-    const scrollOffset =
-      typeof window === "undefined" ? 0 : window.scrollY * 0.0025;
+    const targetScroll =
+      typeof window === "undefined" ? 0 : window.scrollY * 0.00055;
+    smoothedScroll.current = THREE.MathUtils.damp(
+      smoothedScroll.current,
+      targetScroll,
+      2.4,
+      delta
+    );
+    const scrollOffset = smoothedScroll.current;
 
-    animatedGroup.current.rotation.y = elapsed * 0.38 + scrollOffset;
+    animatedGroup.current.rotation.y = elapsed * 0.13 + scrollOffset;
     animatedGroup.current.rotation.x =
       Math.sin(elapsed * 0.55 + scrollOffset) * 0.12;
     animatedGroup.current.rotation.z =
@@ -200,18 +211,20 @@ export const AboutModel = ({ kind, label }: AboutModelProps) => {
 
           <Suspense fallback={<CanvasLoader />}>
             {kind === "mailbox" ? (
-              <TexturedObjSource
+              <ColladaSource
                 kind="mailbox"
-                modelPath="/models/about/mailbox/model.obj"
-                texturePath="/models/about/mailbox/3dptmailbox.png"
+                modelPath="/models/mailbox-stretchers/model.dae"
               />
             ) : kind === "paper-airplane" ? (
-              <PaperAirplaneSource />
-            ) : kind === "develop" ? (
+              <ColladaSource
+                kind="paper-airplane"
+                modelPath="/models/about/paper-airplane/model.dae"
+              />
+            ) : kind === "arwing" ? (
               <TexturedObjSource
-                kind="develop"
-                modelPath="/models/develop/model.obj"
-                texturePath="/models/develop/MenuIcons.png"
+                kind="arwing"
+                modelPath="/models/arwing/model.obj"
+                texturePath="/models/arwing/palette.png"
               />
             ) : (
               <TexturedObjSource
