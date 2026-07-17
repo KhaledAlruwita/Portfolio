@@ -6,7 +6,7 @@ import { OBJLoader } from "three/examples/jsm/loaders/OBJLoader.js";
 import { useMeteorTexture } from "./useMeteorTexture";
 
 const LAPTOP_MODEL = "/models/laptop/NPC_209.obj";
-const LAPTOP_TEXTURE = "/models/laptop/NPC_209.png";
+const LAPTOP_TEXTURE = "/models/laptop/NPC_209.webp";
 
 export const LaptopModel = ({ screenTexture }: { screenTexture?: string }) => {
   const source = useLoader(OBJLoader, LAPTOP_MODEL);

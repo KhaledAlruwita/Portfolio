@@ -8,10 +8,7 @@ export const About = () => {
       <div className="grid grid-cols-1 items-start gap-5 md:grid-cols-2 xl:grid-cols-3">
         <div className="flex flex-col gap-5">
           <div className="grid-container">
-            <div
-              className="data-flow"
-              aria-label="Raw data to business insight"
-            >
+            <div className="data-flow">
               <span>Raw data</span>
               <i>→</i>
               <span>Reliable pipelines</span>
@@ -32,7 +29,7 @@ export const About = () => {
 
         <div className="flex flex-col gap-5">
           <div className="grid-container">
-            <AboutModel kind="arwing" label="Animated Star Fox Arwing" />
+            <AboutModel kind="arwing" />
 
             <div>
               <p className="grid-headtext">Tech Stack</p>
@@ -54,7 +51,7 @@ export const About = () => {
 
         <div className="flex flex-col gap-5 md:col-span-2 xl:col-span-1">
           <div className="grid-container">
-            <AboutModel kind="mailbox" label="Animated mailbox" />
+            <AboutModel kind="mailbox" />
 
             <Button href="#contact" containerClass="w-full" isBeam>
               Contact Me
@@ -62,10 +59,7 @@ export const About = () => {
           </div>
 
           <div className="grid-container">
-            <AboutModel
-              kind="certificate"
-              label="Animated Pokémon Pokédex certificate"
-            />
+            <AboutModel kind="certificate" />
 
             <div className="space-y-3">
               <p className="grid-headtext">My Certificates</p>

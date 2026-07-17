@@ -56,7 +56,7 @@ export const Navbar = ({
                   ? referenceAsset("assets/close.svg")
                   : referenceAsset("assets/menu.svg")
               }
-              alt="Toggle"
+              alt=""
               className="size-6"
             />
           </button>

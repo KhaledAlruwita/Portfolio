@@ -45,7 +45,11 @@ export const Projects = () => {
         to decision-support systems.
       </p>
 
-      <div className="project-selector" aria-label="Choose a featured project">
+      <div
+        className="project-selector"
+        role="group"
+        aria-label="Choose a featured project"
+      >
         {projectOrder.map((index) => {
           const project = myProjects[index];
 
@@ -57,7 +61,14 @@ export const Projects = () => {
               aria-pressed={selectedProjectIndex === index}
               className={selectedProjectIndex === index ? "is-active" : ""}
             >
-              <img src={project.logo} alt="" />
+              <img
+                src={project.logo}
+                alt=""
+                width="40"
+                height="40"
+                loading="lazy"
+                decoding="async"
+              />
               <span>{project.title}</span>
             </button>
           );
@@ -65,15 +76,7 @@ export const Projects = () => {
       </div>
 
       <div className="mt-5 grid w-full grid-cols-1 gap-5 lg:grid-cols-2">
-        <div className="relative flex flex-col gap-5 px-5 py-10 shadow-2xl shadow-black-200 sm:p-10">
-          <div className="absolute right-0 top-0">
-            <img
-              src={currentProject.spotlight}
-              alt="Spotlight"
-              className="pointer-events-none h-96 w-full select-none rounded-xl object-cover"
-            />
-          </div>
-
+        <div className="project-detail-card relative flex flex-col gap-5 px-5 py-10 shadow-2xl shadow-black-200 sm:p-10">
           <div className="my-5 flex flex-col gap-5 text-white-600">
             <p className="animatedText text-2xl font-semibold text-white">
               {currentProject.title}
@@ -131,7 +134,7 @@ export const Projects = () => {
             >
               <img
                 src={referenceAsset("assets/left-arrow.png")}
-                alt="Left arrow"
+                alt=""
                 className="size-4"
               />
             </button>
@@ -143,25 +146,35 @@ export const Projects = () => {
             >
               <img
                 src={referenceAsset("assets/right-arrow.png")}
-                alt="Right arrow"
+                alt=""
                 className="size-4"
               />
             </button>
           </div>
         </div>
 
-        <div className="h-96 rounded-lg border border-black-300 bg-black-200 md:h-full">
+        <div
+          className="h-96 rounded-lg border border-black-300 bg-black-200 md:h-full"
+          role="img"
+          aria-label={`${currentProject.title} displayed on a laptop`}
+        >
           <WebGLGuard
             fallback={
               <div className="project-fallback">
                 <img
                   src={currentProject.fallbackImage}
-                  alt={`${currentProject.title} project`}
+                  alt=""
+                  aria-hidden="true"
+                  loading="lazy"
+                  decoding="async"
                 />
               </div>
             }
           >
-            <Canvas camera={{ position: [0, 1.5, 5], fov: 36 }}>
+            <Canvas
+              camera={{ position: [0, 1.5, 5], fov: 36 }}
+              aria-hidden="true"
+            >
               <ambientLight intensity={Math.PI} />
               <directionalLight position={[10, 10, 5]} />
 

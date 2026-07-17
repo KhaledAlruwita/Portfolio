@@ -16,9 +16,10 @@ export const Footer = () => {
             target="_blank"
             rel="noreferrer noopener"
             title={name}
+            aria-label={name}
             className="social-icon"
           >
-            <img src={icon} alt={name} className="size-1/2" />
+            <img src={icon} alt="" className="size-1/2" />
           </a>
         ))}
       </div>

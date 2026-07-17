@@ -14,7 +14,7 @@ export const Experience = () => {
         <h3 className="head-text">Experience</h3>
 
         <div className="work-container">
-          <div className="laptop-showcase">
+          <div className="laptop-showcase" aria-hidden="true">
             <WebGLGuard
               fallback={
                 <div className="laptop-fallback">
@@ -27,6 +27,7 @@ export const Experience = () => {
                 camera={{ position: [0, 1.6, 5], fov: 36 }}
                 shadows
                 dpr={[1, 1.5]}
+                aria-hidden="true"
               >
                 <ambientLight intensity={2.8} />
                 <directionalLight
