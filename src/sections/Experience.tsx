@@ -1,3 +1,10 @@
+import { OrbitControls } from "@react-three/drei";
+import { Canvas } from "@react-three/fiber";
+import { Suspense } from "react";
+
+import { CanvasLoader } from "../components/CanvasLoader";
+import { LaptopModel } from "../components/LaptopModel";
+import { WebGLGuard } from "../components/WebGLGuard";
 import { workExperiences } from "../constants";
 
 export const Experience = () => {
@@ -7,6 +14,48 @@ export const Experience = () => {
         <h3 className="head-text">Experience</h3>
 
         <div className="work-container">
+          <div className="laptop-showcase">
+            <WebGLGuard
+              fallback={
+                <div className="laptop-fallback">
+                  <span aria-hidden="true">☄️</span>
+                  <strong>Data in motion</strong>
+                </div>
+              }
+            >
+              <Canvas
+                camera={{ position: [0, 1.6, 5], fov: 36 }}
+                shadows
+                dpr={[1, 1.5]}
+              >
+                <ambientLight intensity={2.8} />
+                <directionalLight
+                  position={[4, 6, 5]}
+                  intensity={3.4}
+                  castShadow
+                />
+                <pointLight
+                  position={[-3, 2, 2]}
+                  intensity={2}
+                  color="#38bdf8"
+                />
+
+                <Suspense fallback={<CanvasLoader />}>
+                  <group scale={2.35} position={[0, -0.55, 0]}>
+                    <LaptopModel />
+                  </group>
+                </Suspense>
+
+                <OrbitControls
+                  enablePan={false}
+                  enableZoom={false}
+                  minPolarAngle={Math.PI / 3}
+                  maxPolarAngle={Math.PI / 2}
+                />
+              </Canvas>
+            </WebGLGuard>
+          </div>
+
           <div className="work-content">
             <div className="experience-list">
               {workExperiences.map((experience) => (

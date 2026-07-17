@@ -9,6 +9,7 @@ import type * as THREE from "three";
 import type { GLTF } from "three-stdlib";
 
 import { referenceAsset } from "../constants/assets";
+import { useMeteorTexture } from "./useMeteorTexture";
 
 const HACKER_ROOM_MODEL = referenceAsset("models/hacker-room.glb");
 
@@ -51,7 +52,7 @@ export const HackerRoom = (props: GroupProps) => {
   const { nodes, materials } = useGLTF(HACKER_ROOM_MODEL) as GLTFResult;
 
   const monitorTxt = useTexture(referenceAsset("textures/desk/monitor.png"));
-  const screenTxt = useTexture("/assets/data-screen.svg");
+  const screenTxt = useMeteorTexture();
 
   return (
     <group {...props} dispose={null}>
@@ -59,7 +60,7 @@ export const HackerRoom = (props: GroupProps) => {
         geometry={nodes.screen_screens_0.geometry}
         material={materials.screens}
       >
-        <meshMatcapMaterial map={screenTxt} />
+        <meshBasicMaterial map={screenTxt} toneMapped={false} />
       </mesh>
       <mesh
         geometry={nodes.screen_glass_glass_0.geometry}
