@@ -171,7 +171,28 @@ section {
 
   /*  work experience section */
   .work-container {
-    @apply mt-12;
+    @apply mt-12 grid grid-cols-1 items-start gap-5 lg:grid-cols-[minmax(17rem,0.72fr)_2fr];
+  }
+
+  .laptop-showcase {
+    @apply h-80 overflow-hidden rounded-2xl border border-white/10 bg-black-200 lg:sticky lg:top-28 lg:h-[26rem];
+    background-image: radial-gradient(
+      circle at 50% 38%,
+      rgba(56, 189, 248, 0.13),
+      transparent 60%
+    );
+  }
+
+  .laptop-fallback {
+    @apply flex size-full flex-col items-center justify-center gap-3 text-white-600;
+  }
+
+  .laptop-fallback span {
+    @apply text-5xl;
+  }
+
+  .laptop-fallback strong {
+    @apply text-sm uppercase tracking-[0.24em];
   }
 
   .work-content {
