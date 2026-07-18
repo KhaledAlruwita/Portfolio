@@ -12,30 +12,30 @@ export function calculateSizes(
 ) {
   return {
     cubePosition: isSmall
-      ? [4, -5, 0]
+      ? [-3.2, -3.5, 1.2]
       : isMobile
-        ? [5, -5, 0]
+        ? [-4, -3.8, 1.2]
         : isTablet
           ? [5, -5, 0]
           : [9, -5.5, 0],
     ringPosition: isSmall
-      ? [-5, 7, 0]
+      ? [-3.5, 3.1, 1.4]
       : isMobile
-        ? [-10, 10, 0]
+        ? [-4.2, 3.6, 1.4]
         : isTablet
           ? [-12, 10, 0]
           : [-24, 10, 0],
     targetPosition: isSmall
-      ? [-5, -10, -10]
+      ? [3.3, -3.8, -3.5]
       : isMobile
-        ? [-9, -10, -10]
+        ? [4.2, -4.4, -3.5]
         : isTablet
           ? [-11, -7, -10]
           : [-13, -13, -10],
     blitzBallPosition: isSmall
-      ? [-4.2, 2.4, -2]
+      ? [3.25, 1.8, 1.5]
       : isMobile
-        ? [-5.5, 2.7, -2]
+        ? [4, 2.2, 1.5]
         : isTablet
           ? [-7, 2.8, -1]
           : [-10.5, 2.2, -1],

@@ -17,6 +17,7 @@ export const Hero = ({ isActivated, onExplore }: HeroProps) => {
   const prefersReducedMotion = useMediaQuery({
     query: "(prefers-reduced-motion: reduce)",
   });
+  const shouldRenderScene = !prefersReducedMotion && (isMobile || isActivated);
   const sceneFallback = (
     <div className="hero-fallback" aria-hidden="true">
       <div className="hero-fallback_glow" />
@@ -43,7 +44,7 @@ export const Hero = ({ isActivated, onExplore }: HeroProps) => {
       </div>
 
       <div className="absolute inset-0 size-full">
-        {isActivated && !isMobile && !prefersReducedMotion ? (
+        {shouldRenderScene ? (
           <WebGLGuard fallback={sceneFallback}>
             <Suspense fallback={sceneFallback}>
               <HeroScene />
