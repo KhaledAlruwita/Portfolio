@@ -1,28 +1,17 @@
-import { lazy, Suspense } from "react";
-import { useMediaQuery } from "react-responsive";
-
 import { Button } from "../components/Button";
+import HeroScene from "../components/HeroScene";
 import { WebGLGuard } from "../components/WebGLGuard";
 import { links } from "../constants";
 
-const HeroScene = lazy(() => import("../components/HeroScene"));
-
 interface HeroProps {
-  isActivated: boolean;
   onExplore: () => void;
 }
 
-export const Hero = ({ isActivated, onExplore }: HeroProps) => {
-  const isMobile = useMediaQuery({ maxWidth: 767 });
-  const prefersReducedMotion = useMediaQuery({
-    query: "(prefers-reduced-motion: reduce)",
-  });
-  const shouldRenderScene = !prefersReducedMotion && (isMobile || isActivated);
+export const Hero = ({ onExplore }: HeroProps) => {
   const sceneFallback = (
     <div className="hero-fallback" aria-hidden="true">
       <div className="hero-fallback_glow" />
-      <img src="/images/pfp.svg" alt="" />
-      <div className="hero-fallback_code">Python · SQL · PySpark · Airflow</div>
+      <div className="hero-fallback_loading">Loading interactive scene…</div>
     </div>
   );
 
@@ -44,15 +33,9 @@ export const Hero = ({ isActivated, onExplore }: HeroProps) => {
       </div>
 
       <div className="absolute inset-0 size-full">
-        {shouldRenderScene ? (
-          <WebGLGuard fallback={sceneFallback}>
-            <Suspense fallback={sceneFallback}>
-              <HeroScene />
-            </Suspense>
-          </WebGLGuard>
-        ) : (
-          sceneFallback
-        )}
+        <WebGLGuard fallback={sceneFallback}>
+          <HeroScene />
+        </WebGLGuard>
       </div>
 
       <div className="c-space absolute bottom-7 left-0 right-0 z-10 mx-auto flex w-full max-w-3xl flex-col gap-3 sm:flex-row">

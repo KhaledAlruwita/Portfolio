@@ -437,26 +437,14 @@ section {
   filter: blur(18px);
 }
 
-.hero-fallback img {
-  position: relative;
-  width: clamp(10rem, 24vw, 18rem);
-  aspect-ratio: 1;
-  border-radius: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  background: rgba(14, 14, 16, 0.75);
-  object-fit: contain;
-  padding: 1rem;
-  box-shadow: 0 24px 90px rgba(0, 0, 0, 0.7);
-}
-
-.hero-fallback_code {
+.hero-fallback_loading {
   position: relative;
   border: 1px solid rgba(56, 189, 248, 0.18);
   border-radius: 999px;
   background: rgba(14, 14, 16, 0.8);
-  padding: 0.6rem 1rem;
+  padding: 0.7rem 1.1rem;
   color: #afb0b6;
-  font-size: 0.75rem;
+  font-size: 0.8rem;
 }
 
 .about-model {
@@ -611,16 +599,6 @@ section {
 
   .hero-fallback_glow {
     width: 78vw;
-  }
-
-  .hero-fallback img {
-    width: clamp(7.5rem, 34vw, 10rem);
-    border-radius: 1.25rem;
-    padding: 0.65rem;
-  }
-
-  .hero-fallback_code {
-    display: none;
   }
 
   .data-flow {
