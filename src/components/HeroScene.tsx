@@ -6,8 +6,8 @@ import * as THREE from "three";
 
 import { calculateSizes } from "../lib/utils";
 import { CanvasLoader } from "./CanvasLoader";
-import { Cube } from "./Cube";
 import { FloatingObjModel } from "./FloatingObjModel";
+import { HeroArwing } from "./HeroArwing";
 import { HeroCamera } from "./HeroCamera";
 import { LaptopModel } from "./LaptopModel";
 import { Rings } from "./Rings";
@@ -84,9 +84,9 @@ const HeroScene = () => {
           <group scale={isMobile ? 0.85 : 0.88}>
             <Rings position={sizes.ringPosition as [number, number, number]} />
           </group>
-          <Cube
-            position={sizes.cubePosition as Vector3}
-            scale={isSmall ? 0.48 : isMobile ? 0.58 : 0.64}
+          <HeroArwing
+            position={sizes.arwingPosition as Vector3}
+            scale={isSmall ? 0.52 : isMobile ? 0.62 : 0.72}
           />
           <FloatingObjModel
             modelPath="/models/blitz-ball/model.obj"

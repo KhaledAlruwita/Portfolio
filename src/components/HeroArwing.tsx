@@ -1,21 +1,18 @@
-import { useFrame, useLoader, type GroupProps } from "@react-three/fiber";
+import { useGLTF } from "@react-three/drei";
+import { useFrame, type GroupProps } from "@react-three/fiber";
 import { useMemo, useRef } from "react";
 import * as THREE from "three";
-import {
-  ColladaLoader,
-  type Collada,
-} from "three/examples/jsm/loaders/ColladaLoader.js";
 import { clone as cloneSkeleton } from "three/examples/jsm/utils/SkeletonUtils.js";
 
-const MODEL_PATH = "/models/meteor/model.dae";
+const MODEL_PATH = "/models/hero-arwing/model.glb";
 
-export const Target = (props: GroupProps) => {
+export const HeroArwing = (props: GroupProps) => {
   const animatedRef = useRef<THREE.Group>(null);
   const smoothedScroll = useRef(0);
-  const collada = useLoader(ColladaLoader, MODEL_PATH) as Collada;
+  const { scene } = useGLTF(MODEL_PATH);
 
-  const meteor = useMemo(() => {
-    const model = cloneSkeleton(collada.scene);
+  const arwing = useMemo(() => {
+    const model = cloneSkeleton(scene);
 
     model.traverse((child) => {
       if (!(child instanceof THREE.Mesh)) return;
@@ -54,11 +51,11 @@ export const Target = (props: GroupProps) => {
 
     model.position.sub(center);
     wrapper.add(model);
-    wrapper.scale.setScalar(3.2 / largestDimension);
-    wrapper.rotation.set(0.18, 0.4, -0.08);
+    wrapper.scale.setScalar(2.8 / largestDimension);
+    wrapper.rotation.set(0.24, -0.72, 0.06);
 
     return wrapper;
-  }, [collada]);
+  }, [scene]);
 
   useFrame(({ clock }, delta) => {
     if (!animatedRef.current) return;
@@ -72,17 +69,20 @@ export const Target = (props: GroupProps) => {
     const elapsed = clock.elapsedTime;
     const scroll = smoothedScroll.current;
 
-    animatedRef.current.position.y = Math.sin(elapsed * 0.55) * 0.2;
-    animatedRef.current.rotation.x = Math.sin(elapsed * 0.37) * 0.08;
-    animatedRef.current.rotation.y = elapsed * 0.16 + scroll * 0.0001;
-    animatedRef.current.rotation.z = Math.cos(elapsed * 0.29) * 0.06;
+    animatedRef.current.position.y = Math.sin(elapsed * 0.62) * 0.18;
+    animatedRef.current.rotation.x = Math.sin(elapsed * 0.42) * 0.07;
+    animatedRef.current.rotation.y =
+      Math.sin(elapsed * 0.34) * 0.14 + scroll * 0.00012;
+    animatedRef.current.rotation.z = Math.cos(elapsed * 0.31) * 0.05;
   });
 
   return (
     <group {...props}>
       <group ref={animatedRef}>
-        <primitive object={meteor} />
+        <primitive object={arwing} />
       </group>
     </group>
   );
 };
+
+useGLTF.preload(MODEL_PATH);

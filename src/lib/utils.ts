@@ -11,7 +11,7 @@ export function calculateSizes(
   isTablet: boolean
 ) {
   return {
-    cubePosition: isSmall
+    arwingPosition: isSmall
       ? [-3.2, -3.5, 1.2]
       : isMobile
         ? [-4, -3.8, 1.2]
