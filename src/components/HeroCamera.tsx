@@ -18,19 +18,27 @@ export const HeroCamera = ({
 
     if (!groupRef.current) return;
 
-    const pointerX = isMobile ? 0 : state.pointer.x;
-    const pointerY = isMobile ? 0 : state.pointer.y;
+    const elapsed = state.clock.getElapsedTime();
+    const travel = isMobile ? 0.12 : 0.28;
 
     easing.damp3(
       groupRef.current.position,
-      [pointerX * 0.85, pointerY * 0.45, 0],
-      0.22,
+      [
+        Math.sin(elapsed * 0.34) * travel,
+        Math.cos(elapsed * 0.42) * travel * 0.58,
+        0,
+      ],
+      0.55,
       delta
     );
     easing.dampE(
       groupRef.current.rotation,
-      [pointerY * 0.12, -pointerX * 0.24, pointerX * 0.015],
-      0.22,
+      [
+        Math.sin(elapsed * 0.28) * 0.022,
+        Math.cos(elapsed * 0.24) * 0.035,
+        Math.sin(elapsed * 0.2) * 0.012,
+      ],
+      0.55,
       delta
     );
   });

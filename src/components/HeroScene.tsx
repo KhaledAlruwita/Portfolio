@@ -78,20 +78,22 @@ const HeroScene = () => {
         </HeroCamera>
 
         <ScrollReactiveObjects isMobile={isMobile}>
-          <group scale={isMobile ? 0.68 : 1}>
+          <group scale={isMobile ? 0.68 : 0.78}>
             <Target position={sizes.targetPosition as Vector3} />
           </group>
-          <Rings position={sizes.ringPosition as [number, number, number]} />
+          <group scale={isMobile ? 0.85 : 0.88}>
+            <Rings position={sizes.ringPosition as [number, number, number]} />
+          </group>
           <Cube
             position={sizes.cubePosition as Vector3}
-            scale={isSmall ? 0.48 : isMobile ? 0.58 : 0.74}
+            scale={isSmall ? 0.48 : isMobile ? 0.58 : 0.64}
           />
           <FloatingObjModel
             modelPath="/models/blitz-ball/model.obj"
             texturePath="/models/blitz-ball/texture.webp"
             position={sizes.blitzBallPosition as [number, number, number]}
             baseRotation={[0.2, -0.35, 0]}
-            targetSize={isMobile ? 1.75 : 3.2}
+            targetSize={isMobile ? 1.75 : 2.7}
             scrollTravel={isMobile ? 0.2 : 0.5}
           />
         </ScrollReactiveObjects>
