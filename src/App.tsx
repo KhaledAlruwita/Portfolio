@@ -197,7 +197,7 @@ function App() {
   return (
     <main className="relative mx-auto max-w-7xl">
       <Navbar onRevealSections={revealSections} />
-      <Hero isActivated={showSections} onExplore={revealSections} />
+      <Hero onExplore={revealSections} />
 
       {showSections ? (
         <>
